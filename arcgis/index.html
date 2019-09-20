@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Woolpert STREAM:RASTER - ArcGIS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css" />
+	<script src="https://js.arcgis.com/4.12/"></script>
+
+	<style type="text/css">
+		html,
+		body,
+		#map {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+
+	<script type="text/javascript">
+		require([
+			"esri/layers/WebTileLayer",
+			"esri/Map",
+			"esri/views/SceneView"
+		], function (WebTileLayer, Map, SceneView) {
+			// Replace LAYER_ID, API_KEY, and MAX_SCALE with appropriate values for your STREAM:RASTER layer
+			var srTileLayer = new WebTileLayer({
+				urlTemplate: "https://raster.stream.woolpert.io/layers/LAYER_ID/tiles/{level}/{col}/{row}?key=API_KEY",
+				minScale: 591658710.9,
+				maxScale: MAX_SCALE,
+				visible: true
+			});
+
+			var map = new Map({
+				ground: "world-elevation",
+				basemap: "gray-vector",
+				layers: [srTileLayer]
+			});
+
+			var view = new SceneView({
+				container: "map",
+				map: map,
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="map"></div>
+</body>
+
+</html>

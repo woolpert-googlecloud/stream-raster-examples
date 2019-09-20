@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Woolpert STREAM:RASTER - Google Maps</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<style type="text/css">
+		html,
+		body,
+		#map {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+	<script type="text/javascript">
+		function init() {
+			// Replace LAYER_ID, API_KEY, and MAX_ZOOM with appropriate values for your STREAM:RASTER layer
+			var srMapType = new google.maps.ImageMapType({
+				name: 'Woolpert STREAM:RASTER',
+				minZoom: 0,
+				maxZoom: MAX_ZOOM,
+				tileSize: new google.maps.Size(256, 256),
+				getTileUrl: function (coord, zoom) {					
+					return 'https://raster.stream.woolpert.io/layers/LAYER_ID/tiles/' + zoom + '/' + coord.x + '/' + coord.y + '?key=API_KEY'
+				},
+			});
+
+			var map = new google.maps.Map(document.getElementById('map'), {
+				gestureHandling: 'greedy'
+			});
+			map.overlayMapTypes.push(srMapType);
+		}
+	</script>
+</head>
+
+<body>
+	<div id="map"></div>
+
+	<!-- Replace GMAPS_API_KEY with your Google API Key-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=GMAPS_API_KEY&callback=init" async defer></script>
+</body>
+
+
+</html>

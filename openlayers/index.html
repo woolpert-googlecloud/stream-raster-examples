@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Woolpert STREAM:RASTER - OpenLayers</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<style type="text/css">
+		html,
+		body,
+		#map {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+
+	<!--
+		Do not use these CSS/JS sources in production, they are used here for simplicity.
+		Recent versions of OpenLayers are built to be imported as modern JavaScript modules.
+		See: https://openlayers.org/en/latest/doc/tutorials/bundle.html
+	-->
+	<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+	<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+
+	<script type="text/javascript">
+		function init() {
+			var layers = [
+				new ol.layer.Tile({
+					// Replace LAYER_ID, API_KEY, and MAX_ZOOM with appropriate values for your STREAM:RASTER layer
+					source: new ol.source.XYZ({
+						url: 'https://raster.stream.woolpert.io/layers/LAYER_ID/tiles/{z}/{x}/{y}?key=API_KEY',
+						minZoom: 0,
+						maxZoom: MAX_ZOOM
+					})
+				})
+			];
+
+			new ol.Map({
+				target: 'map',
+				loadTilesWhileInteracting: true,
+				loadTilesWhileAnimating: true,
+				layers: layers,
+				view: new ol.View({
+					zoom: 11,
+					maxZoom: 23,
+				})
+			});
+		}
+	</script>
+</head>
+
+<body onload="init()">
+	<div id="map"></div>
+</body>
+
+</html>

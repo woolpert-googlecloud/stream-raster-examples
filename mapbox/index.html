@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Woolpert STREAM:RASTER - Mapbox</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+
+	<style type="text/css">
+		html,
+		body,
+		#map {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+	<script type="text/javascript">
+		function init() {
+			// Replace MB_TOKEN with your Mapbox Access Token
+			mapboxgl.accessToken = 'MB_TOKEN';
+
+			var map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/mapbox/basic-v8',
+			});
+
+			map.on('load', function() {
+				map.addSource('stream-raster', {
+					type: 'raster',
+					// Replace LAYER_ID and API_KEY with appropriate values for your STREAM:RASTER layer
+					tiles: ['https://raster.stream.woolpert.io/layers/LAYER_ID/tiles/{z}/{x}/{y}?key=API_KEY'],
+					tileSize: 256,
+				});
+				map.addLayer({
+					id: 'stream-raster',
+					type: 'raster',
+					source: 'stream-raster',
+					minzoom: 0,
+					// Replace MAX_ZOOM with the appropriate value for your STREAM:RASTER layer
+					maxzoom: MAX_ZOOM
+				});
+			});
+		}
+	</script>
+</head>
+
+<body onload="init()">
+	<div id="map"></div>
+</body>
+
+</html>
